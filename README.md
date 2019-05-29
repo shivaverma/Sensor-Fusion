@@ -6,9 +6,9 @@
 
 ### This is how the results looks like:
 
-<img src=Lidar/media/result2.gif width="400">
-
 <img src=Lidar/media/result1.gif width="400">
+
+<img src=Lidar/media/result2.gif width="400">
 
 
 
