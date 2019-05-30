@@ -24,7 +24,7 @@ void insertHelper(Node** node, std::vector<float> point, int id, int depth)
         *node = new Node(point, id);
     else
     {
-        int ind = depth % 2;
+        int ind = depth % 3;
         
         if(point[ind] <= (*node)->point[ind])
             insertHelper(&((*node)->left), point, id, depth+1);
@@ -38,7 +38,7 @@ void searchHelper(Node* node, std::vector<float> target, float distanceTol, int 
     if(node == NULL)
         return;
     
-    int ind = depth % 2;
+    int ind = depth % 3;
     
     if(abs(node->point[ind] - target[ind]) > distanceTol)
     {
@@ -49,7 +49,7 @@ void searchHelper(Node* node, std::vector<float> target, float distanceTol, int 
     }
     else
     {
-        float dis = sqrt(pow(node->point[0] - target[0], 2) + pow(node->point[1] - target[1], 2));
+        float dis = sqrt(pow(node->point[0] - target[0], 2) + pow(node->point[1] - target[1], 2) + pow(node->point[2] - target[2], 2));
         
         if(dis < distanceTol)
             ids.push_back(node->id);

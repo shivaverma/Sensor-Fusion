@@ -139,7 +139,7 @@ void createCluster(const std::vector<std::vector<float>>& points, pcl::PointClou
     }
 }
 
-std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
+std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol, int minSize)
 {
     // TODO: Fill out this function to return list of indices for each cluster
     
@@ -162,7 +162,8 @@ std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> euclideanCluster(const std::vec
         if(flag[i] == 0)
         {
             createCluster(points, cluster, flag, tree, distanceTol, i);
-            clusters.push_back(cluster);
+            if(cluster->points.size() >= minSize)
+                clusters.push_back(cluster);
         }
     }
     return clusters;
@@ -199,16 +200,16 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
 void cityBlock(pcl::visualization::PCLVisualizer::Ptr &viewer, ProcessPointClouds<pcl::PointXYZ> pointProcessor, pcl::PointCloud<pcl::PointXYZ>::Ptr inputCloud)
 {
     // first point is x-axis along with road, second y-axis, third z-axis
-    Eigen::Vector4f minVec = Eigen::Vector4f(-10, -5.8, -2, 1);
-    Eigen::Vector4f maxVec = Eigen::Vector4f(30, 7.2, 10, 1);
+    Eigen::Vector4f minVec = Eigen::Vector4f(-10, -6.2, -2, 1);
+    Eigen::Vector4f maxVec = Eigen::Vector4f(25, 7, 10, 1);
     
-    inputCloud = pointProcessor.FilterCloud(inputCloud, .5, minVec, maxVec);
+    inputCloud = pointProcessor.FilterCloud(inputCloud, .45, minVec, maxVec);
     
     // renderPointCloud(viewer, filterCloud, "filterCloud");
     
-    std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> segCloud = Ransac3D(inputCloud, 200, 0.5);
+    std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> segCloud = Ransac3D(inputCloud, 1000, .45);
     
-    renderPointCloud(viewer, segCloud.first, "obsCloud", Color(1,0,0));
+    // renderPointCloud(viewer, segCloud.first, "obsCloud", Color(1,0,0));
     renderPointCloud(viewer, segCloud.second, "planeCloud", Color(0,1,0));
     
     KdTree* tree = new KdTree;
@@ -229,7 +230,7 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr &viewer, ProcessPointCloud
         tree->insert(points[i], i);
     
     // std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = pointProcessor.Clustering(segCloud.first, 1.5, 3, 30);
-    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = euclideanCluster(points, tree, .6);
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = euclideanCluster(points, tree, .6, 4);
     
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0), Color(1,1,0), Color(0,0,1)};
@@ -296,7 +297,7 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
         tree->insert(points[i], i);
     
     // std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = pointProcessor.Clustering(segCloud.first, 1.5, 3, 30);
-    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = euclideanCluster(points, tree, 2);
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = euclideanCluster(points, tree, 2, 3);
     
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0), Color(1,1,0), Color(0,0,1)};
@@ -348,7 +349,7 @@ int main (int argc, char** argv)
     std::cout << "starting enviroment" << std::endl;
 
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
-    CameraAngle setAngle = FPS;
+    CameraAngle setAngle = XY;
     initCamera(setAngle, viewer);
     
     // simpleHighway(viewer);
