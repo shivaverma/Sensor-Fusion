@@ -203,11 +203,11 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr &viewer, ProcessPointCloud
     Eigen::Vector4f minVec = Eigen::Vector4f(-10, -6.2, -2, 1);
     Eigen::Vector4f maxVec = Eigen::Vector4f(25, 7, 10, 1);
     
-    inputCloud = pointProcessor.FilterCloud(inputCloud, .45, minVec, maxVec);
+    inputCloud = pointProcessor.FilterCloud(inputCloud, .3, minVec, maxVec);
     
     // renderPointCloud(viewer, filterCloud, "filterCloud");
     
-    std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> segCloud = Ransac3D(inputCloud, 1000, .45);
+    std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> segCloud = Ransac3D(inputCloud, 900, .4);
     
     // renderPointCloud(viewer, segCloud.first, "obsCloud", Color(1,0,0));
     renderPointCloud(viewer, segCloud.second, "planeCloud", Color(0,1,0));
@@ -230,7 +230,7 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr &viewer, ProcessPointCloud
         tree->insert(points[i], i);
     
     // std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = pointProcessor.Clustering(segCloud.first, 1.5, 3, 30);
-    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = euclideanCluster(points, tree, .6, 4);
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = euclideanCluster(points, tree, .4, 8);
     
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0), Color(1,1,0), Color(0,0,1)};
