@@ -8,9 +8,9 @@
 
 ### This is how the results looks like:
 
-<img src=Lidar/media/result1.gif width="500">
+<img src=Lidar-Obstacle-Detection/media/result1.gif width="500">
 
-<img src=Lidar/media/result2.gif width="500">
+<img src=Lidar-Obstacle-Detection/media/result2.gif width="500">
 
 
 
