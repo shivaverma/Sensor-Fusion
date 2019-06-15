@@ -1,6 +1,6 @@
 ## Basic Info
 
-- Library: Opencv 4.1
+- Library: OpenCV 4.1
 - Language: C++
 - Plateform: Mac
 
