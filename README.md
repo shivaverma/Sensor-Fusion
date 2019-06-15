@@ -12,6 +12,13 @@
 
 <img src=Lidar-Obstacle-Detection/media/result2.gif width="500">
 
+## Project 2 (Feature Tracking 2D)
+
+- Implemented various `Keypoint Detection`, `Description Extraction` and `Keypoints Matching` algorithms using OpenCV.
+- Used ablove pipeline for tracking same Keypoints/Features in different images.
+
+<img src="Feature-Tracking-2D/images/keypoints.png" width="820" height="248" />
+
 
 
 
