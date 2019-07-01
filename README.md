@@ -27,7 +27,7 @@ This is how the results looks like:
 
 <img src="Feature-Tracking-2D/images/keypoints.png" width="820" height="248" />
 
-Following is a detailed analysis on few combination of algorithms used
+Following is a detailed analysis of algorithms used for keypoints detection, descriptor extraction and keypoints matching. 
 
 <img src="Feature-Tracking-2D/images/analysis.png" width="820"/>
 
