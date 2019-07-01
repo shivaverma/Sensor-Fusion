@@ -21,10 +21,14 @@
 ## Project 2 (Feature Tracking 2D)
 
 - Implemented `Keypoint Detection`, `Description Extraction` and `Keypoints Matching` algorithms.
-- Used ablove pipeline for tracking same Keypoints/Features in different images.
+- First `keypoints` are located in the images.
+- Using these keypoints their `descriptors` are extracted.
+- Same keypoints are `matched` using their `descriptors` in different images.
 
 <img src="Feature-Tracking-2D/images/keypoints.png" width="820" height="248" />
 
+Following is a detailed analysis on few combination of algorithms used
 
+<img src="Feature-Tracking-2D/images/analysis.png" width="820"/>
 
 
