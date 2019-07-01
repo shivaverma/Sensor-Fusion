@@ -20,12 +20,12 @@ This is how the results looks like:
 
 ## Project 2 | Feature Tracking 2D
 
+<img src="Feature-Tracking-2D/images/keypoints.png" width="820" height="248" />
+
 - Implemented `Keypoint Detection`, `Description Extraction` and `Keypoints Matching` algorithms.
 - First `keypoints` are located in the images.
 - Using these keypoints their `descriptors` are extracted.
 - Same keypoints are `matched` using their `descriptors` in different images.
-
-<img src="Feature-Tracking-2D/images/keypoints.png" width="820" height="248" />
 
 Following is a detailed analysis of algorithms used for keypoints detection, descriptor extraction and keypoints matching. 
 
